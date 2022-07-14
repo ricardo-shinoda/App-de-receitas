@@ -2,10 +2,10 @@ import React from 'react';
 import Header from './Header';
 
 function Login() {
-  handleChange = () => {
-    // const MAX_LENGTH = 5;
-    // const regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/gi;
-  };
+  // handleChange = () => {
+  //   const MAX_LENGTH = 5;
+  //   const regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/gi;
+  // };
 
   return (
     <div>
