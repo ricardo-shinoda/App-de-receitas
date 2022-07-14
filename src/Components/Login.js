@@ -1,7 +1,12 @@
 import React from 'react';
 import Header from './Header';
 
-export default function Login() {
+function Login() {
+  handleChange = () => {
+    // const MAX_LENGTH = 5;
+    // const regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/gi;
+  };
+
   return (
     <div>
       <Header titulo="Login" />
@@ -26,3 +31,5 @@ export default function Login() {
     </div>
   );
 }
+
+export default Login;
