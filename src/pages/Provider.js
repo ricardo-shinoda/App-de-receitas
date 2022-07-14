@@ -15,7 +15,7 @@ function Provider({ children }) {
 }
 
 Provider.propTypes = {
-  children: PropTypes.arrayOf.isRequired,
-};
+  children: PropTypes.objectOf,
+}.isRequired;
 
 export default Provider;
