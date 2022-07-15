@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import Provider from './pages/Provider';
+import Provider from './Context/Provider';
 import Main from './Routes';
 
 function App() {

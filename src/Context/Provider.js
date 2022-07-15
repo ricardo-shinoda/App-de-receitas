@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MyContext from '../Context/MyContext';
+import MyContext from './MyContext';
 
 function Provider({ children }) {
   const initialState = {};
