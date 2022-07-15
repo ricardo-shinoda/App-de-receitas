@@ -29,6 +29,7 @@ export default function Header(props) {
           isDisabledSearch ? { display: 'none' } : {}
         }
       />
+      
     </>
   );
 }
