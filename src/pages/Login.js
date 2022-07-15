@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 
 function Login() {
-  // handleChange = () => {
-  //   const MAX_LENGTH = 5;
-  //   const regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/gi;
-  // };
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -21,11 +16,19 @@ function Login() {
     const six = 6;
     let button = true;
     if (email.includes('@')
-    && email.includes('.com')
-    && password.length > six) {
+      && email.includes('.com')
+      && password.length > six) {
       button = false;
     }
     return button;
+  };
+
+  const onChange = () => {
+    localStorage.setItem('user', JSON.stringify({
+      email,
+    }));
+    localStorage.setItem('mealsToken', JSON.stringify(1));
+    localStorage.setItem('cocktailsToken', JSON.stringify(1));
   };
 
   return (
@@ -50,6 +53,7 @@ function Login() {
         type="button"
         data-testid="login-submit-btn"
         disabled={ isDisabled() }
+        onClick={ onChange }
       >
         Enter
       </button>
