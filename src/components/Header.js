@@ -39,14 +39,16 @@ export default function Header(props) {
           data-testid="profile-top-btn"
         />
       </Link>
-      { <button type="button" onClick={ inputDisabled() }>
+      { !isDisabledSearch
+    && (
+      <button type="button" onClick={ () => inputDisabled() }>
         <img
           src={ SearchIcon }
           id="searchIcon"
           alt="searchIcon"
           data-testid="search-top-btn"
         />
-      </button> && !isDisabledSearch }
+      </button>) }
       { inputDisable ? <input data-testid="search-input" /> : '' }
     </>
   );

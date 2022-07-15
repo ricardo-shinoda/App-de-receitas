@@ -1,11 +1,10 @@
-
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 function RecipeDetails() {
   const history = useHistory();
-  const [foodApi, setFoodApi] = useState();
-  const [drinkApi, setDrinkApi] = useState();
+  // const [foodApi, setFoodApi] = useState();
+  // const [drinkApi, setDrinkApi] = useState();
   // const id = useParams();
 
   useEffect(() => {
@@ -25,7 +24,7 @@ function RecipeDetails() {
       };
       getApiDrink();
     }
-  }, []);
+  }, [history.location.pathname]);
 
   return (
     <div>
