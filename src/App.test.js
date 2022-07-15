@@ -1,5 +1,6 @@
 import React from 'react';
 import App from './App'
+import { createMemoryHistory } from 'history';
 import userEvent from '@testing-library/user-event';
 import { render, screen } from '@testing-library/react';
 
@@ -24,5 +25,28 @@ describe('Testa 45% de cobertura da tela de login', () => {
     userEvent.click(button);
     const user = JSON.parse(localStorage.getItem('user'));
     expect(user.email).toBe('test@test.com');
+  })
+})
+
+describe('Desenvolva 90% de cobertura de testes para o Header', () => {
+  test('Verifica se ao clicar no ícone de perfil, é redirecionado para a página /profile', () => {
+    render(<App />);
+    const titleFoods = screen.getByText(/foods/i);
+    expect(titleFoods).toBeInTheDocument();
+    const searchBtn = screen.getByTestId('search-top-btn');
+    const searchInputNull = screen.queryByTestId('search-input');
+    expect(searchInputNull).not.toBeInTheDocument();
+    userEvent.click(searchBtn);
+    const searchInput = screen.queryByTestId('search-input');
+    expect(searchInput).toBeInTheDocument();
+  })
+  test('Verifica se o component na página /profile não renderiza o botão search', () => {
+    render(<App />)
+    const profileBtn = screen.getByTestId('profile-top-btn');
+    userEvent.click(profileBtn);
+    const title = screen.getByText(/profile/i);
+    expect(title).toBeInTheDocument();
+    const searchBtn = screen.queryByTestId('search-top-btn');
+    expect(searchBtn).not.toBeInTheDocument();
   })
 })

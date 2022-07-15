@@ -17,18 +17,6 @@ export default function Header(props) {
 
   const inputDisabled = () => (inputDisable ? setInput(false) : setInput(true));
 
-  // const buttonSearch = (
-  //   <button type="button" onClick={ inputDisabled() }>
-  //     <img
-  //       src={ SearchIcon }
-  //       // onKeyPress={ inputDisable()}
-  //       id="searchIcon"
-  //       alt="searchIcon"
-  //       data-testid="search-top-btn"
-  //     />
-  //   </button>
-  // );
-
   return (
     <>
       <h1 data-testid="page-title">{titulo}</h1>
