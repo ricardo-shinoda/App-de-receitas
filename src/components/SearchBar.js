@@ -1,8 +1,12 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import MyContext from '../Context/MyContext';
 
-function SearchBar() {
-  const { clickSearch, handleClickRadio, handleChangeSearch } = useContext(MyContext);
+function SearchBar(props) {
+  const { clickSearch,
+    handleClickRadioFood,
+    handleChangeSearch, handleClickRadioDrink } = useContext(MyContext);
+  const { pagina } = props;
   return (
     <div>
       <input type="text" data-testid="search-input" onChange={ handleChangeSearch } />
@@ -13,7 +17,7 @@ function SearchBar() {
           type="radio"
           data-testid="ingredient-search-radio"
           id="ingredient"
-          onChange={ handleClickRadio }
+          onChange={ pagina === 'Drinks' ? handleClickRadioDrink : handleClickRadioFood }
           name="radio"
         />
       </label>
@@ -23,7 +27,7 @@ function SearchBar() {
           type="radio"
           data-testid="name-search-radio"
           id="name"
-          onChange={ handleClickRadio }
+          onChange={ pagina === 'Foods' ? handleClickRadioFood : handleClickRadioDrink }
           name="radio"
         />
       </label>
@@ -33,7 +37,7 @@ function SearchBar() {
           type="radio"
           data-testid="first-letter-search-radio"
           id="first-letter"
-          onChange={ handleClickRadio }
+          onChange={ pagina === 'Foods' ? handleClickRadioFood : handleClickRadioDrink }
           name="radio"
         />
       </label>
@@ -47,5 +51,9 @@ function SearchBar() {
     </div>
   );
 }
+
+SearchBar.propTypes = {
+  pagina: PropTypes.string,
+}.isRequired;
 
 export default SearchBar;

@@ -11,7 +11,7 @@ function Provider({ children }) {
     setSearchValue(target.value);
   };
 
-  const handleClickRadio = async ({ target }) => {
+  const handleClickRadioFood = ({ target }) => {
     if (target.id === 'ingredient') {
       const url = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
       setApiRadio(url);
@@ -24,22 +24,38 @@ function Provider({ children }) {
     }
   };
 
+  const handleClickRadioDrink = ({ target }) => {
+    if (target.id === 'ingredient') {
+      const url = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
+      setApiRadio(url);
+    } else if (target.id === 'name') {
+      const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+      setApiRadio(url);
+    } else if (target.id === 'first-letter') {
+      const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
+      setApiRadio(url);
+    }
+  };
+
   const clickSearch = async () => {
-    const url = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
+    const urlMeal = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
+    const urlDrink = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
     const apiUrl = apiRadio + searchValue;
-    if (apiRadio === url && searchValue.length !== 1) {
+    if ((apiRadio === urlMeal || apiRadio === urlDrink) && searchValue.length !== 1) {
       global.alert('Your search must have only 1 (one) character');
     } else {
       const response = await fetch(apiUrl);
       const data = await response.json();
-      setApiObj(data.meals);
+      console.log(data);
+      setApiObj(data);
     }
   };
 
   const initialState = {
     clickSearch,
-    handleClickRadio,
+    handleClickRadioFood,
     handleChangeSearch,
+    handleClickRadioDrink,
     apiRadio,
     apiObj,
   };

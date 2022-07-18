@@ -38,7 +38,7 @@ export default function Header(props) {
           data-testid="search-top-btn"
         />
       </button>) }
-      { inputDisable ? <SearchBar /> : '' }
+      { inputDisable ? <SearchBar pagina={ titulo } /> : '' }
     </>
   );
 }
