@@ -5,7 +5,7 @@ function RecipeDetails() {
   const history = useHistory();
   // const [foodApi, setFoodApi] = useState();
   // const [drinkApi, setDrinkApi] = useState();
-  // const id = useParams();
+  // const id = useParams();;
 
   useEffect(() => {
     if (history.location.pathname === '/foods') {
