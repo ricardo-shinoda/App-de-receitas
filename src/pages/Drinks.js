@@ -10,7 +10,6 @@ function Drinks() {
   const apiRender = () => {
     const DOZE = 12;
     const dozeApiObj = apiObj.drinks.slice(0, DOZE);
-    console.log(dozeApiObj);
     const mapApi = dozeApiObj.map((drink, index) => (
       <div key={ drink.idDrink } data-testid={ `${index}-recipe-card` }>
         <img

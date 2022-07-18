@@ -38,6 +38,8 @@ function Provider({ children }) {
   };
 
   const clickSearch = async () => {
+    const sorryWord = 'Sorry';
+    const alert = `${sorryWord}, we haven't found any recipes for these filters.`;
     const urlMeal = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
     const urlDrink = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
     const apiUrl = apiRadio + searchValue;
@@ -46,8 +48,19 @@ function Provider({ children }) {
     } else {
       const response = await fetch(apiUrl);
       const data = await response.json();
-
-      setApiObj(data);
+      if (data.meals === undefined) {
+        if (data.drinks === null) {
+          global.alert(alert);
+        } else {
+          setApiObj(data);
+        }
+      } else if (data.drinks === undefined) {
+        if (data.meals === null) {
+          global.alert(alert);
+        } else {
+          setApiObj(data);
+        }
+      }
     }
   };
 
