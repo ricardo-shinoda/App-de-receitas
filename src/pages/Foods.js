@@ -8,9 +8,17 @@ function Foods() {
   const history = useHistory();
 
   const apiRender = () => {
-    const mapApi = apiObj.meals.map((food) => (
-      <div key={ food.idMeal }>
-        <p>{ food.strMeal }</p>
+    const DOZE = 12;
+    const dozeApiObj = apiObj.meals.slice(0, DOZE);
+    const mapApi = dozeApiObj.map((food, index) => (
+      <div key={ food.idMeal } data-testid={ `${index}-recipe-card` }>
+        <img
+          src={ food.strMealThumb }
+          alt="foto da receita"
+          data-testid={ `${index}-card-img` }
+          width="150px"
+        />
+        <p data-testid={ `${index}-card-name` }>{ food.strMeal }</p>
       </div>
     ));
     if (apiObj.meals.length === 1) {

@@ -8,9 +8,18 @@ function Drinks() {
   const history = useHistory();
 
   const apiRender = () => {
-    const mapApi = apiObj.drinks.map((drink) => (
-      <div key={ drink.idDrink }>
-        <p>{ drink.strDrink }</p>
+    const DOZE = 12;
+    const dozeApiObj = apiObj.drinks.slice(0, DOZE);
+    console.log(dozeApiObj);
+    const mapApi = dozeApiObj.map((drink, index) => (
+      <div key={ drink.idDrink } data-testid={ `${index}-recipe-card` }>
+        <img
+          src={ drink.strDrinkThumb }
+          alt="foto da receita"
+          data-testid={ `${index}-card-img` }
+          width="150px"
+        />
+        <p data-testid={ `${index}-card-name` }>{ drink.strDrink }</p>
       </div>
     ));
     if (apiObj.drinks.length === 1) {
