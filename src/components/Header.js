@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 export default function Header(props) {
   const { titulo } = props;
@@ -37,7 +38,7 @@ export default function Header(props) {
           data-testid="search-top-btn"
         />
       </button>) }
-      { inputDisable ? <input data-testid="search-input" /> : '' }
+      { inputDisable ? <SearchBar /> : '' }
     </>
   );
 }
