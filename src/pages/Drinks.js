@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import MyContext from '../Context/MyContext';
+import Recipes from './Recipes';
 
 function Drinks() {
   const { apiObj } = useContext(MyContext);
@@ -35,7 +36,7 @@ function Drinks() {
     <div>
       <Header titulo="Drinks" />
       { apiObj.drinks !== undefined && apiObj.drinks.length > 0
-      && apiRender() }
+        ? apiRender() : <Recipes titulo="drinks" /> }
       <Footer />
     </div>
   );

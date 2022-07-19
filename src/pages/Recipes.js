@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../components/Header';
-// import MyContext from '../Context/MyContext';
+import PropTypes from 'prop-types';
+// import Header from '../components/Header';
+import FoodsAndDrinks from '../components/FoodsAndDrinks';
 
-export default function Recipes() {
-  // const { apiObj } = useContext(MyContext);
-
+export default function Recipes(props) {
+  const { titulo } = props;
   const [itens, setItens] = useState([]);
   const [foods, setFoods] = useState([]);
   const [drinks, setDrinks] = useState([]);
-  // const
   const five = 5;
 
   useEffect(() => {
@@ -25,40 +24,34 @@ export default function Recipes() {
     };
     drinksApi();
   }, []);
-  const handleButton = ({ target }) => {
-    const { name } = target;
-    if (name === 'drinks') {
+  useEffect(() => {
+    if (titulo === 'foods' && foods.meals) {
+      return setItens(foods.meals.slice(0, five));
+    }
+    if (titulo === 'drinks' && drinks.drinks) {
       return setItens(drinks.drinks.slice(0, five));
     }
-    return setItens(foods.meals.slice(0, five));
-  };
+  }, [foods, titulo, drinks]);
 
   return (
     <>
-      <Header />
-      <div>
-        <button
-          type="button"
-          data-testid="food-category-filter"
-          name="foods"
-          onClick={ (e) => handleButton(e) }
-        >
-          Food
-        </button>
-        <button
-          type="button"
-          data-testid="drinks-category-filter"
-          name="drinks"
-          onClick={ (e) => handleButton(e) }
-        >
-          Drinks
-        </button>
-      </div>
       {itens.map((item) => (
-        <div key={ item }>
+        <button
+          type="button"
+          data-testid={ `${item.strCategory}-category-filter` }
+          key={ item.strCategory }
+        >
           { item.strCategory }
-        </div>
+        </button>
       ))}
+      <FoodsAndDrinks
+        titulo={ titulo }
+        filterApply=""
+      />
     </>
   );
 }
+
+Recipes.propTypes = {
+  titulo: PropTypes.string,
+}.isRequired;
