@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../style/Footer.css';
 
 function Footer() {
   return (
-    <div data-testid="footer">
+    <div data-testid="footer" className="footer">
       <Link to="/drinks">
         <img
           src="../images/drinkIcon.svg"

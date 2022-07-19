@@ -3,6 +3,22 @@ import App from './App'
 import userEvent from '@testing-library/user-event';
 import { render, screen } from '@testing-library/react';
 import renderWithRouter from './helpers/renderWithRouter';
+import chickenMeals from '../cypress/mocks/chickenMeals';
+import cocktailDrinks from '../cypress/mocks/cocktailDrinks';
+
+const mockFetchFood = () => {
+  jest.spyOn(global, 'fetch')
+    .mockImplementation(() => Promise.resolve({
+      json: () => Promise.resolve(chickenMeals),
+    }));
+};
+
+const mockFetchDrink = () => {
+  jest.spyOn(global, 'fetch')
+    .mockImplementation(() => Promise.resolve({
+      json: () => Promise.resolve(cocktailDrinks),
+    }));
+};
 
 describe('Testa 45% de cobertura da tela de login', () => {
   test('testa se ao digitar o email, o botão está desativado', () => {
@@ -53,7 +69,8 @@ describe('Desenvolva 90% de cobertura de testes para o Header', () => {
   })
 })
 
-describe('Verifica se os testes cobrem 45% da searchBar', () => {
+describe('Verifica se os testes cobrem 90% da searchBar', () => {
+  
   test('Verifica se os componentes estão na tela', () => {
     const {history} = renderWithRouter(<App />);
     history.push('/foods');
@@ -69,5 +86,37 @@ describe('Verifica se os testes cobrem 45% da searchBar', () => {
     expect(nameRadio).toBeInTheDocument();
     expect(letterRadio).toBeInTheDocument();
     expect(btnCall).toBeInTheDocument();
+  })
+  test('Verifica se faz a chamada API corretamente na página foods', async () => {
+    const {history} = renderWithRouter(<App />);
+    mockFetchFood
+    history.push('/foods');
+    const searchIcon = screen.getByTestId('search-top-btn');
+    userEvent.click(searchIcon);
+    const searchInput = screen.getByTestId('search-input');
+    userEvent.type(searchInput, 'chicken');
+    const ingredientRadio = screen.getByTestId('ingredient-search-radio');
+    userEvent.click(ingredientRadio);
+    const btnSearch = screen.getByTestId('exec-search-btn');
+    userEvent.click(btnSearch);
+    const firstItem = await screen.findByTestId('0-card-name');
+    expect(firstItem).toBeInTheDocument();
+    jest.clearAllMocks()
+  })
+  test('Verifica se faz a chamada API corretamente na página drinks', async () => {
+    const {history} = renderWithRouter(<App />);
+    mockFetchDrink
+    history.push('/drinks');
+    const searchIcon = screen.getByTestId('search-top-btn');
+    userEvent.click(searchIcon);
+    const searchInput = screen.getByTestId('search-input');
+    userEvent.type(searchInput, 'cocktail');
+    const nameRadio = screen.getByTestId('name-search-radio');
+    userEvent.click(nameRadio);
+    const btnSearch = screen.getByTestId('exec-search-btn');
+    userEvent.click(btnSearch);
+    const item = await screen.findByTestId('0-card-name');
+    expect(item).toBeInTheDocument();
+    jest.clearAllMocks()
   })
 })

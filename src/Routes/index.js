@@ -7,6 +7,7 @@ import Drinks from '../pages/Drinks';
 import Profile from '../pages/Profile';
 import DoneRecipes from '../pages/DoneRecipes';
 import FavoriteRecipes from '../pages/FavoriteRecipes';
+import Recipes from '../pages/Recipes';
 
 function Main() {
   return (
@@ -14,10 +15,12 @@ function Main() {
       <Route exact path="/" component={ Login } />
       <Route exact path="/foods" component={ Foods } />
       <Route exact path="/drinks" component={ Drinks } />
+      <Route path="/recipes" component={ Recipes } />
       <Route path="/profile" component={ Profile } />
       <Route path="/done-recipes" component={ DoneRecipes } />
       <Route path="/favorite-recipes" component={ FavoriteRecipes } />
-      {/* <Route path="/foods/:id" component={ RecipeDetails } /> */}
+      {/* <Route path="/foods/:id" component={ RecipeDetails } />
+      <Route path="/drinks/:id" component={ RecipeDetails } /> */}
     </Switch>
   );
 }

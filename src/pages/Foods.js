@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import MyContext from '../Context/MyContext';
 
@@ -36,6 +37,7 @@ function Foods() {
       <Header titulo="Foods" />
       { apiObj.meals !== undefined && apiObj.meals.length > 0
       && apiRender()}
+      <Footer />
     </div>
   );
 }
