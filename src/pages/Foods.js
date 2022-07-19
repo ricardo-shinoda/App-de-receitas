@@ -6,16 +6,19 @@ import MyContext from '../Context/MyContext';
 import Recipes from './Recipes';
 
 function Foods() {
-  const { apiObj, clickRecipeDetail } = useContext(MyContext);
+  const { apiObj } = useContext(MyContext);
   const history = useHistory();
 
   const apiRender = () => {
     const DOZE = 12;
     const dozeApiObj = apiObj.meals.slice(0, DOZE);
     const mapApi = dozeApiObj.map((food, index) => (
-      <Link key={ food.idMeal } to={ `/foods/${food.idMeal}` }>
+      <Link
+        key={ food.idMeal }
+        to={ `/foods/${food.idMeal}` }
+        data-testid={ `${index}-recipe-card` }
+      >
         <div
-          data-testid={ `${index}-recipe-card` }
           id={ food.idMeal }
           name="food"
         >
