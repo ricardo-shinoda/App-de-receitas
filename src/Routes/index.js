@@ -7,7 +7,7 @@ import Drinks from '../pages/Drinks';
 import Profile from '../pages/Profile';
 import DoneRecipes from '../pages/DoneRecipes';
 import FavoriteRecipes from '../pages/FavoriteRecipes';
-// import Recipes from '../pages/Recipes';
+import RecipeDetails from '../pages/RecipeDetails';
 
 function Main() {
   return (
@@ -18,8 +18,8 @@ function Main() {
       <Route path="/profile" component={ Profile } />
       <Route path="/done-recipes" component={ DoneRecipes } />
       <Route path="/favorite-recipes" component={ FavoriteRecipes } />
-      {/* <Route path="/foods/:id" component={ RecipeDetails } />
-      <Route path="/drinks/:id" component={ RecipeDetails } /> */}
+      <Route path="/foods/:id" component={ RecipeDetails } />
+      <Route path="/drinks/:id" component={ RecipeDetails } />
     </Switch>
   );
 }

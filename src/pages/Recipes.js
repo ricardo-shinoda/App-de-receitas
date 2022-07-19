@@ -33,13 +33,24 @@ export default function Recipes(props) {
     }
   }, [foods, titulo, drinks]);
 
+  // const handleCategoriesClick = (categorie) => {
+  //   if (titulo === 'foods')
+  // };
   return (
     <>
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        // onClick
+      >
+        All
+      </button>
       {itens.map((item) => (
         <button
           type="button"
           data-testid={ `${item.strCategory}-category-filter` }
           key={ item.strCategory }
+          // onClick={ () => handleCategoriesClick(item.strCategory) }
         >
           { item.strCategory }
         </button>
