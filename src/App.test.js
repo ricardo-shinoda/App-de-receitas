@@ -7,6 +7,7 @@ import chickenMeals from '../cypress/mocks/chickenMeals';
 import cocktailDrinks from '../cypress/mocks/cocktailDrinks';
 import FoodDetail from './pages/FoodDetail';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import RecipeInProgress from './pages/RecipeInProgress';
 
 const mockFetchFood = () => {
   jest.spyOn(global, 'fetch')
@@ -123,6 +124,7 @@ describe('Verifica se os testes cobrem 90% da searchBar', () => {
   })
 
 })
+
 describe('Testa a página FoodDetails', () => {
   it('Testa a página FoodDetail.js renderiza o componente Header', () => {
     const { history } = renderWithRouter(<FoodDetail />);
@@ -132,6 +134,7 @@ describe('Testa a página FoodDetails', () => {
   })
 
 })
+//! Testa FavoriteRecipes
 describe('Testa a página FavoriteRecipes.js', () => {
   it('Testa a página FavoriteRecipes.js renderiza o componente Header', () => {
     const { history } = renderWithRouter(<FavoriteRecipes />);
@@ -140,3 +143,33 @@ describe('Testa a página FavoriteRecipes.js', () => {
     expect(header).toBeInTheDocument();
   })
 })
+
+///! Testa RecipeInProgress
+ describe('Testa a página RecipeProgress.js', () => {
+  it('Verifica se existe uma foto no header', () => {
+    const { history } = renderWithRouter(<RecipeInProgress />);
+    history.push('');
+    const headerPhoto = screen.getByTestId('recipe-photo');
+    expect(headerPhoto).toBeInTheDocument();
+  })
+
+  it('Verifica se existe um titulo de receita', () => {
+    const { history } = renderWithRouter(<RecipeInProgress />);
+    history.push('')
+    const title = screen.getByTestId('recipe-title');
+    expect(title).toBeInTheDocument();
+    })
+
+  it('Verifica se existem dois botões: compartilhar e favorito na tela', () => {
+    const { history } = renderWithRouter(<RecipeInProgress />);
+    history.push('');
+    const shareButton = screen.getByTestId('share-btn');
+    expect(shareButton).toBeInTheDocument();
+    const favButton = screen.getByTestId('favorite-btn');
+    expect(favButton).toBeInTheDocument();
+    })
+
+    it('Verifica o para')
+
+})
+

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-// import Header from '../components/Header';
+import FilterCategories from '../components/FilterCategories';
 import FoodsAndDrinks from '../components/FoodsAndDrinks';
 
 export default function Recipes(props) {
@@ -8,6 +8,7 @@ export default function Recipes(props) {
   const [itens, setItens] = useState([]);
   const [foods, setFoods] = useState([]);
   const [drinks, setDrinks] = useState([]);
+  const [category, setCategory] = useState('');
   const five = 5;
 
   useEffect(() => {
@@ -33,15 +34,18 @@ export default function Recipes(props) {
     }
   }, [foods, titulo, drinks]);
 
-  // const handleCategoriesClick = (categorie) => {
-  //   if (titulo === 'foods')
-  // };
+  const handleCategoriesClick = (categorie) => {
+    setCategory(categorie);
+  };
+  const handleAllCategorie = () => {
+    setCategory('');
+  };
   return (
     <>
       <button
         type="button"
         data-testid="All-category-filter"
-        // onClick
+        onClick={ () => handleAllCategorie() }
       >
         All
       </button>
@@ -50,15 +54,19 @@ export default function Recipes(props) {
           type="button"
           data-testid={ `${item.strCategory}-category-filter` }
           key={ item.strCategory }
-          // onClick={ () => handleCategoriesClick(item.strCategory) }
+          onClick={ () => handleCategoriesClick(item.strCategory) }
         >
           { item.strCategory }
         </button>
       ))}
-      <FoodsAndDrinks
+      {category ? <FilterCategories
+        categoria={ category }
+        type={ titulo }
+      /> : <FoodsAndDrinks
         titulo={ titulo }
         filterApply=""
-      />
+      /> }
+
     </>
   );
 }

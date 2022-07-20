@@ -43,7 +43,6 @@ function Foods() {
     if (apiObj.meals.length === 1) {
       const itemId = apiObj.meals[0].idMeal;
       const urlItem = `/foods/${itemId}`;
-      console.log(urlItem);
       history.push(urlItem);
     } else {
       return mapApi;

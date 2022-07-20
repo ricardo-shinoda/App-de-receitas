@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import '../style/RecipeDetails.css';
 import PropTypes from 'prop-types';
 
 function RecipeDetails(props) {
   const history = useHistory();
   const [foodApi, setFoodApi] = useState();
   const [drinkApi, setDrinkApi] = useState();
-  // const id = useParams();;
+  const [foodRecommend, setFoodRecommend] = useState();
+  const [drinkRecommend, setDrinkRecommend] = useState();
 
   useEffect(() => {
     if (history.location.pathname.includes('/foods')) {
@@ -17,7 +19,14 @@ function RecipeDetails(props) {
         const responseFoodDetails = await response.json();
         setFoodApi(responseFoodDetails);
       };
+      const getApiDrinkRecommend = async () => {
+        const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+        const response = await fetch(url);
+        const dataDrinkRecommend = await response.json();
+        setDrinkRecommend(dataDrinkRecommend);
+      };
       getApiFood();
+      getApiDrinkRecommend();
     }
     if (history.location.pathname.includes('/drinks')) {
       const getApiDrink = async () => {
@@ -27,7 +36,14 @@ function RecipeDetails(props) {
         const responseDrinkDetails = await response.json();
         setDrinkApi(responseDrinkDetails);
       };
+      const getFoodRecommend = async () => {
+        const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+        const response = await fetch(url);
+        const responseFoodRecommend = await response.json();
+        setFoodRecommend(responseFoodRecommend);
+      };
       getApiDrink();
+      getFoodRecommend();
     }
   }, [history.location.pathname, props]);
 
@@ -101,7 +117,7 @@ function RecipeDetails(props) {
           width="200px"
         />
         <h1 data-testid="recipe-title">{ drinkData.strDrink }</h1>
-        <p data-testid="recipe-category">{ drinkData.strCategory }</p>
+        <p data-testid="recipe-category">{ drinkData.strAlcoholic }</p>
         { ingredientes.map((element, index) => (
           <div key={ index }>
             <div>
@@ -131,10 +147,48 @@ function RecipeDetails(props) {
     );
   };
 
+  const renderDrinkRecommend = () => {
+    const SIX = 6;
+    const sixDrinks = drinkRecommend.drinks.slice(0, SIX);
+    return (
+      <div className="container-scroll">
+        { sixDrinks.map((drink, index) => (
+          <div
+            key={ drink.idDrink }
+            data-testid={ `${index}-recomendation-card` }
+          >
+            <img src={ drink.strDrinkThumb } alt={ drink.strDrink } width="180px" />
+            <p data-testid={ `${index}-recomendation-title` }>{ drink.strDrink }</p>
+          </div>
+        )) }
+      </div>
+    );
+  };
+
+  const renderFoodRecommend = () => {
+    const SIX = 6;
+    const sixFoods = foodRecommend.meals.slice(0, SIX);
+    return (
+      <div className="container-scroll">
+        { sixFoods.map((food, index) => (
+          <div
+            key={ food.idMeal }
+            data-testid={ `${index}-recomendation-card` }
+          >
+            <img src={ food.strMealThumb } alt={ food.strMeal } width="180px" />
+            <p data-testid={ `${index}-recomendation-title` }>{ food.strMeal }</p>
+          </div>
+        )) }
+      </div>
+    );
+  };
+
   return (
     <div>
       { foodApi && renderFoodDetail() }
+      { drinkRecommend && renderDrinkRecommend() }
       { drinkApi && renderDrinkDetail() }
+      { foodRecommend && renderFoodRecommend() }
     </div>
   );
 }

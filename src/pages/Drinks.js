@@ -37,6 +37,7 @@ function Drinks() {
           >
             { drink.strDrink }
           </p>
+          <p data-testid="recipe-category">{ drink.strCategory }</p>
         </div>
       </Link>
     ));

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export default function FoodsAndDrinks(props) {
@@ -32,36 +33,38 @@ export default function FoodsAndDrinks(props) {
       const DOZE = 12;
       const dozeApiObjFood = arrayOfItens.slice(0, DOZE);
       const foodRecipe = arrayOfItens && dozeApiObjFood.map((item, index) => (
-        <div
-          key={ item.idMeal }
-          data-testid={ `${index}-recipe-card` }
-        >
-          <p data-testid={ `${index}-card-name` }>{ item.strMeal }</p>
-          <img
-            src={ item.strMealThumb }
-            alt={ item.strMeal }
-            width="200px"
-            data-testid={ `${index}-card-img` }
-          />
-        </div>
+        <Link to={ `/foods/${item.idMeal}` } key={ item.idMeal }>
+          <div
+            data-testid={ `${index}-recipe-card` }
+          >
+            <p data-testid={ `${index}-card-name` }>{ item.strMeal }</p>
+            <img
+              src={ item.strMealThumb }
+              alt={ item.strMeal }
+              width="200px"
+              data-testid={ `${index}-card-img` }
+            />
+          </div>
+        </Link>
       ));
       return foodRecipe;
     }
     const DOZE = 12;
     const dozeApiObjDrink = arrayOfItens.slice(0, DOZE);
     const drinkRecipe = arrayOfItens && dozeApiObjDrink.map((item, index) => (
-      <div
-        data-testid={ `${index}-recipe-card` }
-        key={ item.idDrink }
-      >
-        <p data-testid={ `${index}-card-name` }>{ item.strDrink }</p>
-        <img
-          data-testid={ `${index}-card-img` }
-          src={ item.strDrinkThumb }
-          alt={ item.strDrink }
-          width="200px"
-        />
-      </div>
+      <Link to={ `/drinks/${item.idDrink}` } key={ item.idDrink }>
+        <div
+          data-testid={ `${index}-recipe-card` }
+        >
+          <p data-testid={ `${index}-card-name` }>{ item.strDrink }</p>
+          <img
+            data-testid={ `${index}-card-img` }
+            src={ item.strDrinkThumb }
+            alt={ item.strDrink }
+            width="200px"
+          />
+        </div>
+      </Link>
     ));
     return drinkRecipe;
   };
