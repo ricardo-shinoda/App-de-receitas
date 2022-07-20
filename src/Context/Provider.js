@@ -7,6 +7,17 @@ function Provider({ children }) {
   const [searchValue, setSearchValue] = useState('');
   const [apiObj, setApiObj] = useState('');
 
+  // const clickRecipeDetail = (e) => {
+  //   const { target } = e;
+  //   if (target.name === 'drink') {
+  //     const url = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
+  //     setRecipeDetail(url);
+  //   } else if (target.name === 'food') {
+  //     const url = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+  //     setRecipeDetail(url);
+  //   }
+  // };
+
   const handleChangeSearch = ({ target }) => {
     setSearchValue(target.value);
   };

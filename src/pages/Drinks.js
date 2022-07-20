@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import MyContext from '../Context/MyContext';
+import Recipes from './Recipes';
 
 function Drinks() {
   const { apiObj } = useContext(MyContext);
@@ -11,15 +13,32 @@ function Drinks() {
     const DOZE = 12;
     const dozeApiObj = apiObj.drinks.slice(0, DOZE);
     const mapApi = dozeApiObj.map((drink, index) => (
-      <div key={ drink.idDrink } data-testid={ `${index}-recipe-card` }>
-        <img
-          src={ drink.strDrinkThumb }
-          alt="foto da receita"
-          data-testid={ `${index}-card-img` }
-          width="150px"
-        />
-        <p data-testid={ `${index}-card-name` }>{ drink.strDrink }</p>
-      </div>
+      <Link
+        to={ `/drinks/${drink.idDrink}` }
+        key={ drink.idDrink }
+        data-testid={ `${index}-recipe-card` }
+      >
+        <div
+          id={ drink.idDrink }
+          name="drink"
+        >
+          <img
+            src={ drink.strDrinkThumb }
+            alt="foto da receita"
+            data-testid={ `${index}-card-img` }
+            width="150px"
+            id={ drink.idDrink }
+            name="drink"
+          />
+          <p
+            data-testid={ `${index}-card-name` }
+            id={ drink.idDrink }
+            name="drink"
+          >
+            { drink.strDrink }
+          </p>
+        </div>
+      </Link>
     ));
     if (apiObj.drinks.length === 1) {
       const itemId = apiObj.drinks[0].idDrink;
@@ -34,7 +53,8 @@ function Drinks() {
     <div>
       <Header titulo="Drinks" />
       { apiObj.drinks !== undefined && apiObj.drinks.length > 0
-      && apiRender() }
+        ? apiRender() : <Recipes titulo="drinks" /> }
+      <Footer />
     </div>
   );
 }
