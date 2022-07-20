@@ -30,7 +30,7 @@ describe('Testa 45% de cobertura da tela de login', () => {
 
 describe('Desenvolva 90% de cobertura de testes para o Header', () => {
   test('Verifica se ao clicar no ícone de perfil, é redirecionado para a página /profile', () => {
-    const {history} = renderWithRouter(<App />);
+    const { history } = renderWithRouter(<App />);
     history.push('/foods');
     const titleFoods = screen.getByText(/foods/i);
     expect(titleFoods).toBeInTheDocument();
@@ -42,7 +42,7 @@ describe('Desenvolva 90% de cobertura de testes para o Header', () => {
     expect(searchInput).toBeInTheDocument();
   })
   test('Verifica se o component na página /profile não renderiza o botão search', () => {
-    const {history} = renderWithRouter(<App />);
+    const { history } = renderWithRouter(<App />);
     history.push('/profile');
     const profileBtn = screen.getByTestId('profile-top-btn');
     userEvent.click(profileBtn);
@@ -55,7 +55,7 @@ describe('Desenvolva 90% de cobertura de testes para o Header', () => {
 
 describe('Verifica se os testes cobrem 45% da searchBar', () => {
   test('Verifica se os componentes estão na tela', () => {
-    const {history} = renderWithRouter(<App />);
+    const { history } = renderWithRouter(<App />);
     history.push('/foods');
     const btnSearch = screen.getByTestId('search-top-btn');
     userEvent.click(btnSearch);
@@ -69,5 +69,14 @@ describe('Verifica se os testes cobrem 45% da searchBar', () => {
     expect(nameRadio).toBeInTheDocument();
     expect(letterRadio).toBeInTheDocument();
     expect(btnCall).toBeInTheDocument();
+  })
+
+  it('Verifica se a imagem Search está na tela', () => {
+    const { history } = renderWithRouter(<App />);
+    history.push('/foods');
+    const img = screen.getByRole('img', { name: /searchicon/i });
+    expect(img).toBeInTheDocument();
+    const search = screen.getByTestId('search-input');
+    expect(search).toBeInTheDocument();
   })
 })
