@@ -1,5 +1,5 @@
 .container-scroll {
-  display:flex;
+  display: flex;
   overflow-x: scroll;
-  width: 360px;
+  width: 300px;
 }

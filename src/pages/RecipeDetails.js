@@ -56,7 +56,6 @@ function RecipeDetails(props) {
   const renderFoodDetail = () => {
     const foodData = foodApi.meals[0];
     const food = Object.entries(foodApi.meals[0]);
-    console.log(foodApi);
     const ingredientes = food.filter((item) => (
       item[0].includes('strIngredient') && item[1] !== null && item[1] !== ''));
     const measures = food.filter((item) => (
@@ -156,8 +155,9 @@ function RecipeDetails(props) {
           <div
             key={ drink.idDrink }
             data-testid={ `${index}-recomendation-card` }
+            style={ { width: '150px', margin: '30px' } }
           >
-            <img src={ drink.strDrinkThumb } alt={ drink.strDrink } width="180px" />
+            <img src={ drink.strDrinkThumb } alt={ drink.strDrink } width="100px" />
             <p data-testid={ `${index}-recomendation-title` }>{ drink.strDrink }</p>
           </div>
         )) }
@@ -174,8 +174,9 @@ function RecipeDetails(props) {
           <div
             key={ food.idMeal }
             data-testid={ `${index}-recomendation-card` }
+            style={ { width: '150px', margin: '30px' } }
           >
-            <img src={ food.strMealThumb } alt={ food.strMeal } width="180px" />
+            <img src={ food.strMealThumb } alt={ food.strMeal } width="100px" />
             <p data-testid={ `${index}-recomendation-title` }>{ food.strMeal }</p>
           </div>
         )) }
