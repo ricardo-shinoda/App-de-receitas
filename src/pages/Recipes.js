@@ -64,7 +64,6 @@ export default function Recipes(props) {
         type={ titulo }
       /> : <FoodsAndDrinks
         titulo={ titulo }
-        filterApply=""
       /> }
 
     </>

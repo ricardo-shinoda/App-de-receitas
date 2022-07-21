@@ -184,12 +184,44 @@ function RecipeDetails(props) {
     );
   };
 
+  const btnStartRecipe = () => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    let id = '';
+    if (doneRecipes !== null) {
+      if (foodApi) id = foodApi.meals[0].idMeal;
+      if (drinkApi) id = drinkApi.drinks[0].idDrink;
+      const doneRecipe = doneRecipes.some((element) => element.id === id);
+      if (doneRecipe === true) {
+        return '';
+      }
+      return (
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="btn-start"
+        >
+          Start Recipe
+        </button>
+      );
+    }
+    return (
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        className="btn-start"
+      >
+        Start Recipe
+      </button>
+    );
+  };
+
   return (
     <div>
       { foodApi && renderFoodDetail() }
       { drinkRecommend && renderDrinkRecommend() }
       { drinkApi && renderDrinkDetail() }
       { foodRecommend && renderFoodRecommend() }
+      { btnStartRecipe() }
     </div>
   );
 }
