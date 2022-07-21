@@ -162,11 +162,22 @@ describe('Testa a página FavoriteRecipes', () => {
   })
 })
 
+//* Verificar como está passando esse teste
 describe('Testa a página FilterCategories', () => {
-  it('card', () => {
+  it('Verifica se o card-name aparece na tela', () => {
     renderWithRouter(<FilterCategories />);
     const card = screen.getByTestId('0-card-name');
     expect(card).toBeInTheDocument();
+  })
+  it('Verifica se o recipe-card aparece na tela', () => {
+    renderWithRouter(<FilterCategories />);
+    const recipeCard = screen.getByTestId('0-recipe-card');
+    expect(recipeCard).toBeInTheDocument();
+  })
+  it('Verifica se o card-img aparece na tela', () => {
+    renderWithRouter(<FilterCategories />);
+    const cardImg = screen.getByTestId('0-card-img');
+    expect(cardImg).toBeInTheDocument();
   })
 })
 
