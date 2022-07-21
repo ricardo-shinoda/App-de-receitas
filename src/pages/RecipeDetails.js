@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import '../style/RecipeDetails.css';
 import PropTypes from 'prop-types';
+import btnStart from '../components/btnStart';
 
 function RecipeDetails(props) {
   const history = useHistory();
@@ -9,6 +10,7 @@ function RecipeDetails(props) {
   const [drinkApi, setDrinkApi] = useState();
   const [foodRecommend, setFoodRecommend] = useState();
   const [drinkRecommend, setDrinkRecommend] = useState();
+  const [recipeType, setRecipeType] = useState('');
 
   useEffect(() => {
     if (history.location.pathname.includes('/foods')) {
@@ -18,6 +20,7 @@ function RecipeDetails(props) {
         const response = await fetch(url);
         const responseFoodDetails = await response.json();
         setFoodApi(responseFoodDetails);
+        setRecipeType(`/foods/${responseFoodDetails.meals[0].idMeal}/in-progress`);
       };
       const getApiDrinkRecommend = async () => {
         const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -35,6 +38,7 @@ function RecipeDetails(props) {
         const response = await fetch(url);
         const responseDrinkDetails = await response.json();
         setDrinkApi(responseDrinkDetails);
+        setRecipeType(`/drinks/${responseDrinkDetails.drinks[0].idDrink}/in-progress`);
       };
       const getFoodRecommend = async () => {
         const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
@@ -184,27 +188,8 @@ function RecipeDetails(props) {
     );
   };
 
-  const btnStartRecipe = () => {
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    let id = '';
-    if (doneRecipes !== null) {
-      if (foodApi) id = foodApi.meals[0].idMeal;
-      if (drinkApi) id = drinkApi.drinks[0].idDrink;
-      const doneRecipe = doneRecipes.some((element) => element.id === id);
-      if (doneRecipe === true) {
-        return '';
-      }
-      return (
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          className="btn-start"
-        >
-          Start Recipe
-        </button>
-      );
-    }
-    return (
+  const btnStartRecipe = (
+    <Link to={ recipeType }>
       <button
         type="button"
         data-testid="start-recipe-btn"
@@ -212,16 +197,18 @@ function RecipeDetails(props) {
       >
         Start Recipe
       </button>
-    );
-  };
+    </Link>
+  );
 
   return (
     <div>
+      <button type="button" data-testid="share-btn">Compartilhar</button>
+      <button type="button" data-testid="favorite-btn">Favoritar</button>
       { foodApi && renderFoodDetail() }
       { drinkRecommend && renderDrinkRecommend() }
       { drinkApi && renderDrinkDetail() }
       { foodRecommend && renderFoodRecommend() }
-      { btnStartRecipe() }
+      { (foodApi || drinkApi) && btnStart(foodApi, drinkApi, btnStartRecipe, recipeType) }
     </div>
   );
 }

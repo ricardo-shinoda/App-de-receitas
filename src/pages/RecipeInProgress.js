@@ -1,18 +1,19 @@
 import React, { useContext } from 'react';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import context from '../Context/MyContext';
 
 function RecipeInProgress() {
-  const { foodApi, drinkApi } = useContext();
+  const { foodApi, drinkApi } = useContext(context);
 
-  concatenaIngredientsAndMeasure = (ingredientes, measures) => {
+  const concatenaIngredientsAndMeasure = (ingredientes, measures) => {
     const ingredientsAndMeasures = [];
     ingredientes.forEach((element, i) => (
       ingredientsAndMeasures.push(`${element} - ${measures[i]}`)));
     // for (let i = 0; i < ingredientes.length; i += 1) {
-    //   return ingredientsAndMeasures.push(`${ingredientes[i]} - ${measures[i]}`);
+    // return ingredientsAndMeasures.push(`${ingredientes[i]} - ${measures[i]}`);
     // }
-    console.log(ingredientsAndMeasures);
+    return ingredientsAndMeasures;
   };
 
   const renderFoodProgress = () => {
@@ -36,12 +37,14 @@ function RecipeInProgress() {
         </header>
         <div>
           <title data-testid="recipe-title">{ foodData.strMeal }</title>
-          <button type="button">
+          <button
+            type="button"
+            data-testid="share-btn"
+          >
             <img
               src={ shareIcon }
               id="shareIcon"
               alt="shareIcon"
-              data-testid="share-btn"
             />
           </button>
           <button type="button">
@@ -119,7 +122,7 @@ function RecipeInProgress() {
             />
           </button>
         </div>
-        <p data-testid="recipe-category">{ drinData.strCategory }</p>
+        <p data-testid="recipe-category">{ drinkData.strAlcoholic }</p>
         { ingredientsSteps.map((element, index) => (
           <div key={ index }>
             <label htmlFor="ingredient-step">

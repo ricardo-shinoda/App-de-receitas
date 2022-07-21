@@ -35,7 +35,8 @@ export default function Recipes(props) {
   }, [foods, titulo, drinks]);
 
   const handleCategoriesClick = (categorie) => {
-    setCategory(categorie);
+    if (category.length > 0) return setCategory('');
+    return setCategory(categorie);
   };
   const handleAllCategorie = () => {
     setCategory('');

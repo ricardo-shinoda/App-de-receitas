@@ -19,9 +19,10 @@ function Main() {
       <Route path="/profile" component={ Profile } />
       <Route path="/done-recipes" component={ DoneRecipes } />
       <Route path="/favorite-recipes" component={ FavoriteRecipes } />
-      <Route path="/foods/:id" component={ RecipeDetails } />
-      <Route path="/drinks/:id" component={ RecipeDetails } />
-      <Route path="/recipe-in-progress" component={ RecipeInProgress } />
+      <Route exact path="/foods/:id" component={ RecipeDetails } />
+      <Route exact path="/drinks/:id" component={ RecipeDetails } />
+      <Route exact path="/drinks/:id/in-progress" component={ RecipeInProgress } />
+      <Route exact path="/foods/:id/in-progress" component={ RecipeInProgress } />
     </Switch>
   );
 }

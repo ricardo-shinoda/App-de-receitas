@@ -8,7 +8,6 @@ export default function FilterCategories(props) {
   const [meal, setMeal] = useState([]);
   const [drinks, setDrinks] = useState([]);
   const [items, setItems] = useState([]);
-  // const [id, setId] = useState('');
   const DOZE = 12;
 
   useEffect(() => {
