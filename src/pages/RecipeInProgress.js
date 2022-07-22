@@ -24,7 +24,9 @@ function RecipeInProgress() {
     const measures = food.filter((item) => (
       item[0].includes('strMeasure') && item[1] !== null && item[1] !== ''));
 
-    const ingredientsSteps = concatenaIngredientsAndMeasure(ingredientes, measures);
+      const ingredientsAndMeasures = [];
+      ingredientes.forEach((element, i) => (
+        ingredientsAndMeasures.push(`${element} - ${measures[i]}`)));
     return (
       <div>
         <header>
