@@ -60,7 +60,7 @@ function RecipeInProgress() {
               <p data-testid="instructions">{ i.strInstructions }</p>
               <p data-testid="recipe-category">{ i.strCategory }</p>
               <ul>
-                {FuncIngredients(ingredient)}
+                <FuncIngredients product={ ingredient } />
               </ul>
             </div>
           ))}
@@ -82,8 +82,7 @@ function RecipeInProgress() {
               <p data-testid="instructions">{ i.strInstructions }</p>
               <p data-testid="recipe-category">{ i.strCategory }</p>
               <ul>
-
-                {FuncIngredients(ingredient)}
+                <FuncIngredients product={ ingredient } />
               </ul>
             </div>
           ))}

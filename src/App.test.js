@@ -13,6 +13,8 @@ import RecipeInProgress from './pages/RecipeInProgress';
 import Drinks from './pages/Drinks';
 import FilterCategories from './components/FilterCategories';
 import FuncIngredients from './helpers/FuncIngredients';
+import Header from './components/Header';
+import Recipes from './pages/Recipes';
 
 const mockFetchFood = () => {
   jest.spyOn(global, 'fetch')
@@ -64,7 +66,7 @@ describe('Desenvolva 90% de cobertura de testes para o Header', () => {
     userEvent.click(searchBtn);
     const searchInput = screen.queryByTestId('search-input');
     expect(searchInput).toBeInTheDocument();
-  }) //! está com erro
+  })
   test('Verifica se o component na página /profile não renderiza o botão search', () => {
     const { history } = renderWithRouter(<App />);
     history.push('/profile');
@@ -74,6 +76,16 @@ describe('Desenvolva 90% de cobertura de testes para o Header', () => {
     expect(title).toBeInTheDocument();
     const searchBtn = screen.queryByTestId('search-top-btn');
     expect(searchBtn).not.toBeInTheDocument();
+  })
+
+  //! Erro
+  it('testa se o input está desabilitado', () => {
+    renderWithRouter(<Header />);
+    const button = screen.getByRole('button', { name: /searchicon/i });
+    expect(button).toBeInTheDocument();
+    userEvent.click(button);
+    const input = screen.getByRole('button', { name: /buscar/i });
+    expect(input).toHaveBeenCalled();
   })
 })
 
@@ -131,6 +143,7 @@ describe('Verifica se os testes cobrem 90% da searchBar', () => {
 
 })
 describe('Testa a página Drinks', () => {
+
   it('Teste se renderiza o Header, Recipes e Footer', () => {
     const { history } = renderWithRouter(<App />);
     history.push('/drinks');
@@ -203,58 +216,69 @@ describe('Testa a página FuncIngredients', () => {
 })
 
 //! está com erro
-// describe('Testa a página FilterCategories', () => {
-//   it('Verifica se o card-name aparece na tela', () => {
-//     renderWithRouter(<FilterCategories />);
-//     const card = screen.getByTestId('0-card-name');
-//     expect(card).toBeInTheDocument();
-//   })
-//   it('Verifica se o recipe-card aparece na tela', () => {
-//     renderWithRouter(<FilterCategories />);
-//     const recipeCard = screen.getByTestId('0-recipe-card');
-//     expect(recipeCard).toBeInTheDocument();
-//   })
-//   it('Verifica se o card-img aparece na tela', () => {
-//     renderWithRouter(<FilterCategories />);
-//     const cardImg = screen.getByTestId('0-card-img');
-//     expect(cardImg).toBeInTheDocument();
-//   })
-// })
+describe('Testa a página FilterCategories', () => {
+  it('Verifica se o card-name aparece na tela', () => {
+    renderWithRouter(<FilterCategories />);
+    const card = screen.getByTestId('0-card-name');
+    expect(card).toHaveBeenCalled();
+  })
+  it('Verifica se o recipe-card aparece na tela', () => {
+    renderWithRouter(<FilterCategories />);
+    const recipeCard = screen.getByTestId('0-recipe-card');
+    expect(recipeCard).toHaveBeenCalled();
+  })
+  it('Verifica se o card-img aparece na tela', () => {
+    const { history } = renderWithRouter(<App />);
+    history.push('/foods');
+    const cardImg = screen.getByTestId('0-recipe-card');
+    expect(cardImg).toHaveBeenCalled();
+  })
+})
 
 
 
+//* RecipeDetails
+describe('Testa a página RecipeDetails', () => {
 
-//! está com erro
-// describe('Testa a página RecipeDetails', () => {
-//     it('Verifica se carrega a foto na página', () => {
-//       renderWithRouter(<RecipeDetails />)
-//       const img = screen.getByTestId('recipe-photo')
-//       expect(img).toBeInTheDocument();
-//     })
-// })
+    it('Verifica se encontra o botão de compartilhar', () => {
+      renderWithRouter(<RecipeDetails />);
+      const button = screen.getByRole('button', { name: /compartilhar/i })
+      expect(button).toBeInTheDocument();
+    })
+    it('Verifica se encontra o botão de favoritar', () => {
+      renderWithRouter(<RecipeDetails />);
+      const favButton = screen.getByTestId('favButton');
+      expect(favButton).toBeInTheDocument();
+    })
+})
 
 
-//! está com erro
-//  describe('Testa a página RecipeProgress.js', () => {
-//   it('Verifica se existe uma foto no header', () => {
-//     renderWithRouter(<RecipeInProgress />);
-//     const headerPhoto = screen.getByTestId('recipe-photo');
-//     expect(headerPhoto).toBeInTheDocument();
-//   })
+ describe('Testa a página RecipeInProgress.js', () => {
+  it('Verifica se existe os botões de share, favorite e finish', () => {
+    const { history } = renderWithRouter(<App />);
+    history.push('/foods/52977/in-progress')
+    const headerPhoto = screen.getByTestId('favorite-btn');
+    expect(headerPhoto).toBeInTheDocument();
+    const title = screen.getByTestId('share-btn');
+    expect(title).toBeInTheDocument();
+    const shareButton = screen.getByTestId('finish-recipe-btn');
+    expect(shareButton).toBeInTheDocument();
+  })
+  // it('Verifica se encontra as informações de bebida, se o caminho for Drinks', () => {
+  //   renderWithRouter(<RecipeInProgress />);
+  //   const title = screen.getByTestId('recipe-photo');
+  //   expect(title).toHaveBeenCalled(1);
+  // })
 
-//   it('Verifica se existe um titulo de receita', () => {
-//     renderWithRouter(<RecipeInProgress />);
-//     const title = screen.getByTestId('recipe-title');
-//     expect(title).toBeInTheDocument();
-//     })
-
-//   it('Verifica se existem dois botões: compartilhar e favorito na tela', () => {
-//     renderWithRouter(<RecipeInProgress />);
-//     const shareButton = screen.getByTestId('share-btn');
-//     expect(shareButton).toBeInTheDocument();
-//     const favButton = screen.getByTestId('favorite-btn');
-//     expect(favButton).toBeInTheDocument();
-//     })
-
-// })
+})
+describe('Testa a página Recipe', () => {
+  it('Verifica se encontra o botão All', () => {
+    renderWithRouter(<Recipes />);
+    const button = screen.getByTestId('All-category-filter');
+    expect(button).toBeInTheDocument();
+    userEvent.click(button);
+    const filter = screen.getByTestId('0-category-filter');
+    expect(filter).toHaveBeenCalled(1);
+  })
+})
 

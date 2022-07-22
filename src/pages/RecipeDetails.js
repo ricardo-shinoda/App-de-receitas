@@ -176,6 +176,7 @@ function RecipeDetails(props) {
       </button>
       <p>{ linkCopied }</p>
       <button
+        data-testid="favButton"
         type="button"
         onClick={ () => clickFavoriteRecipe(foodApi, drinkApi, heartIcon, setIcon) }
       >

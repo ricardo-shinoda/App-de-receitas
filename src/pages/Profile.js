@@ -14,7 +14,7 @@ function Profile() {
   return (
     <div>
       <Header titulo="Profile" />
-      <p data-testid="profile-email">{ userEmail.email }</p>
+      <p data-testid="profile-email">{ userEmail && userEmail.email }</p>
       <button
         type="button"
         data-testid="profile-done-btn"
