@@ -43,7 +43,6 @@ function RecipeInProgress() {
       setIngredient(ingredientes);
     }
   }, [item]);
-  console.log(item, ingredient);
   const settingItem = () => {
     if (path.includes('foods')) {
       return (

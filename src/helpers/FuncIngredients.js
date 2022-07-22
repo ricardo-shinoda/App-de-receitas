@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 const FuncIngredients = (props) => {
   const { product } = props;
   const [checked, setChecked] = useState({});
-  // const previewChecked = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
   const handleChecked = (e) => {
     const { name } = e.target;
@@ -13,8 +12,20 @@ const FuncIngredients = (props) => {
       [name]: true,
     });
   };
+
   const isChecked = (param) => (checked[param] !== false);
-  useEffect(() => () => (localStorage.setItem('inProgressRecipes', JSON.stringify(checked))), []);
+
+  useEffect(() => {
+    // const previewChecked = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    // console.log(previewChecked);
+    // if (previewChecked)
+    // const data = checked;
+    console.log('ronaldo');
+    return (() => {
+      localStorage.setItem('inProgressRecipes', JSON.stringify(checked));
+    });
+  }, [checked]);
+
   useEffect(() => {
     if (product) {
       const arrayNew = product.map((item) => item[1]);
@@ -53,5 +64,3 @@ FuncIngredients.propTypes = {
 };
 
 export default FuncIngredients;
-
-

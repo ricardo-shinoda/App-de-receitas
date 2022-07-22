@@ -8,22 +8,42 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 const copy = require('clipboard-copy');
 
 function FavoriteRecipes() {
-  // const [foodsDone, setFoodsDone] = useState();
-  // const [drinksDone, setDrinksDone] = useState();
   const [filter, setFilter] = useState('All');
 
-  const favoriteIcon = (idRecipe) => {
+  function clickFavoriteRecipe(receita, { target }) {
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favorites !== null && target.name === 'blackHeartIcon') {
+      const deleteFavorite = favorites.filter((element) => element.id !== receita.id);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(deleteFavorite));
+      target.parentNode.parentNode.parentNode.removeChild(target.parentNode.parentNode);
+    }
+  }
+
+  const favoriteIcon = (recipe, index) => {
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (favorites !== null) {
       const favorite = favorites.some((element) => (
-        element.id === idRecipe));
+        element.id === recipe.id));
       if (favorite) {
         return (
-          <button type="button">
-            <img src={ (e) => favoriteIcon(e) } alt="favoritent.id } />
+          <button
+            type="button"
+            onClick={ (e) => clickFavoriteRecipe(recipe, e) }
+          >
+            <img
+              src={ blackHeartIcon }
+              alt="favorite button"
+              name="blackHeartIcon"
+              data-testid={ `${index}-horizontal-favorite-btn` }
+            />
           </button>
         );
       }
+      return (
+        <button type="button">
+          <img src={ whiteHeartIcon } alt="favorite button" name="blackHeartIcon" />
+        </button>
+      );
     }
   };
 
@@ -80,6 +100,7 @@ function FavoriteRecipes() {
               name={ element.type }
             />
           </button>
+          { favoriteIcon(element, index) }
         </div>
       ));
       return recipesRender;
@@ -121,6 +142,7 @@ function FavoriteRecipes() {
               alt="botão compartilhar"
             />
           </button>
+          { favoriteIcon(element, index) }
         </div>
       ));
       return foodsRender;
@@ -162,6 +184,7 @@ function FavoriteRecipes() {
               alt="botão compartilhar"
             />
           </button>
+          { favoriteIcon(element, index) }
         </div>
       ));
       return drinksRender;
