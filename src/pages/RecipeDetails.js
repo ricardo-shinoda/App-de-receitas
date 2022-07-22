@@ -3,6 +3,13 @@ import { useHistory, Link } from 'react-router-dom';
 import '../style/RecipeDetails.css';
 import PropTypes from 'prop-types';
 import btnStart from '../components/btnStart';
+import clickFavoriteRecipe from '../components/clickFavoriteRecipe';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import renderFoodDetail from '../components/renderFoodDetail';
+import renderDrinkDetail from '../components/renderDrinkDetail';
+
+const copy = require('clipboard-copy');
 
 function RecipeDetails(props) {
   const history = useHistory();
@@ -11,6 +18,8 @@ function RecipeDetails(props) {
   const [foodRecommend, setFoodRecommend] = useState();
   const [drinkRecommend, setDrinkRecommend] = useState();
   const [recipeType, setRecipeType] = useState('');
+  const [linkCopied, setLinkCopied] = useState('');
+  const [heartIcon, setHeartIcon] = useState(whiteHeartIcon);
 
   useEffect(() => {
     if (history.location.pathname.includes('/foods')) {
@@ -55,99 +64,6 @@ function RecipeDetails(props) {
     const linkYoutube = foodApi.meals[0].strYoutube;
     const transform = linkYoutube.replace('watch?v=', 'embed/');
     return transform;
-  };
-
-  const renderFoodDetail = () => {
-    const foodData = foodApi.meals[0];
-    const food = Object.entries(foodApi.meals[0]);
-    const ingredientes = food.filter((item) => (
-      item[0].includes('strIngredient') && item[1] !== null && item[1] !== ''));
-    const measures = food.filter((item) => (
-      item[0].includes('strMeasure') && item[1] !== null && item[1] !== ''));
-    return (
-      <div>
-        <img
-          src={ foodData.strMealThumb }
-          alt={ foodData.strMeal }
-          data-testid="recipe-photo"
-          width="200px"
-        />
-        <h1 data-testid="recipe-title">{ foodData.strMeal }</h1>
-        <p data-testid="recipe-category">{ foodData.strCategory }</p>
-        { ingredientes.map((element, index) => (
-          <p
-            key={ index }
-            data-testid={ `${index}-ingredient-name-and-measure` }
-          >
-            {element[1]}
-          </p>
-        )) }
-        { measures.map((element, index) => (
-          <div key={ index }>
-            <p
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              {element[1]}
-            </p>
-          </div>
-        )) }
-        <p data-testid="instructions">{ foodData.strInstructions }</p>
-        <iframe
-          src={ transformUrlFood() }
-          frameBorder="0"
-          allow="autoplay; encrypted-media"
-          allowFullScreen
-          title="video"
-          data-testid="video"
-        />
-      </div>
-    );
-  };
-
-  const renderDrinkDetail = () => {
-    const drinkData = drinkApi.drinks[0];
-    const drink = Object.entries(drinkApi.drinks[0]);
-    const ingredientes = drink.filter((item) => (
-      item[0].includes('strIngredient') && item[1] !== null && item[1] !== ''));
-    const measures = drink.filter((item) => (
-      item[0].includes('strMeasure') && item[1] !== null && item[1] !== ''));
-    return (
-      <div>
-        <img
-          src={ drinkData.strDrinkThumb }
-          alt={ drinkData.strDrink }
-          data-testid="recipe-photo"
-          width="200px"
-        />
-        <h1 data-testid="recipe-title">{ drinkData.strDrink }</h1>
-        <p data-testid="recipe-category">{ drinkData.strAlcoholic }</p>
-        { ingredientes.map((element, index) => (
-          <div key={ index }>
-            <div>
-              <div>
-                <p
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {element[1]}
-                </p>
-              </div>
-            </div>
-          </div>
-        )) }
-        { measures.map((element, index) => (
-          <div key={ index }>
-            <div>
-              <p
-                data-testid={ `${index}-ingredient-name-and-measure` }
-              >
-                {element[1]}
-              </p>
-            </div>
-          </div>
-        )) }
-        <p data-testid="instructions">{ drinkData.strInstructions }</p>
-      </div>
-    );
   };
 
   const renderDrinkRecommend = () => {
@@ -200,13 +116,74 @@ function RecipeDetails(props) {
     </Link>
   );
 
+  const btnCopyLink = () => {
+    copy(`http://localhost:3000${history.location.pathname}`);
+    setLinkCopied('Link copied!');
+  };
+
+  useEffect(() => {
+    const favoriteIcon = () => {
+      const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      if (favorites !== null && foodApi) {
+        const favorite = favorites.some((element) => (
+          element.id === foodApi.meals[0].idMeal));
+        if (favorite) {
+          setHeartIcon(blackHeartIcon);
+        } else {
+          setHeartIcon(whiteHeartIcon);
+        }
+      }
+      if (favorites !== null && drinkApi) {
+        const favorite = favorites.some((element) => (
+          element.id === drinkApi.drinks[0].idDrink));
+        if (favorite) {
+          setHeartIcon(blackHeartIcon);
+        } else {
+          setHeartIcon(whiteHeartIcon);
+        }
+      }
+      return whiteHeartIcon;
+    };
+    favoriteIcon();
+  }, [drinkApi, foodApi]);
+
+  const setIcon = () => {
+    if (heartIcon === whiteHeartIcon) {
+      setHeartIcon(blackHeartIcon);
+    } else {
+      setHeartIcon(whiteHeartIcon);
+      const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      if (foodApi) {
+        const newFavorites = favorites.filter((element) => (
+          element.id !== foodApi.meals[0].idMeal));
+        localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
+      } else if (drinkApi) {
+        const newFavorites = favorites.filter((element) => (
+          element.id !== drinkApi.drinks[0].idDrink));
+        localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
+      }
+    }
+  };
+
   return (
     <div>
-      <button type="button" data-testid="share-btn">Compartilhar</button>
-      <button type="button" data-testid="favorite-btn">Favoritar</button>
-      { foodApi && renderFoodDetail() }
+      <button
+        type="button"
+        data-testid="share-btn"
+        onClick={ btnCopyLink }
+      >
+        Compartilhar
+      </button>
+      <p>{ linkCopied }</p>
+      <button
+        type="button"
+        onClick={ () => clickFavoriteRecipe(foodApi, drinkApi, heartIcon, setIcon) }
+      >
+        <img src={ heartIcon } alt="favorite button" data-testid="favorite-btn" />
+      </button>
+      { foodApi && renderFoodDetail(foodApi, transformUrlFood) }
       { drinkRecommend && renderDrinkRecommend() }
-      { drinkApi && renderDrinkDetail() }
+      { drinkApi && renderDrinkDetail(drinkApi) }
       { foodRecommend && renderFoodRecommend() }
       { (foodApi || drinkApi) && btnStart(foodApi, drinkApi, btnStartRecipe, recipeType) }
     </div>
