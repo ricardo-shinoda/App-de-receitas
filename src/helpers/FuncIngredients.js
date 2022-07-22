@@ -9,6 +9,7 @@ const FuncIngredients = (ingredient) => (
     >
       <input
         type="checkbox"
+        name="checkbox"
         id={ `checkIngredient${index}` }
       />
       {ingred[1]}

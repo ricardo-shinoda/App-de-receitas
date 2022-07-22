@@ -14,6 +14,7 @@ function Drinks() {
     const dozeApiObj = apiObj.drinks.slice(0, DOZE);
     const mapApi = dozeApiObj.map((drink, index) => (
       <Link
+        name="link"
         to={ `/drinks/${drink.idDrink}` }
         key={ drink.idDrink }
         data-testid={ `${index}-recipe-card` }
@@ -35,9 +36,9 @@ function Drinks() {
             id={ drink.idDrink }
             name="drink"
           >
-            { drink.strDrink }
+            {drink.strDrink}
           </p>
-          <p data-testid="recipe-category">{ drink.strCategory }</p>
+          <p data-testid="recipe-category">{drink.strCategory}</p>
         </div>
       </Link>
     ));
@@ -51,10 +52,10 @@ function Drinks() {
   };
 
   return (
-    <div>
+    <div data-testid="div">
       <Header titulo="Drinks" />
-      { apiObj.drinks !== undefined && apiObj.drinks.length > 0
-        ? apiRender() : <Recipes titulo="drinks" /> }
+      {apiObj.drinks !== undefined && apiObj.drinks.length > 0
+        ? apiRender() : <Recipes titulo="drinks" />}
       <Footer />
     </div>
   );
