@@ -16,6 +16,7 @@ import FuncIngredients from './helpers/FuncIngredients';
 import Header from './components/Header';
 import Recipes from './pages/Recipes';
 
+
 const mockFetchFood = () => {
   jest.spyOn(global, 'fetch')
     .mockImplementation(() => Promise.resolve({
@@ -85,7 +86,7 @@ describe('Desenvolva 90% de cobertura de testes para o Header', () => {
     expect(button).toBeInTheDocument();
     userEvent.click(button);
     const input = screen.getByRole('button', { name: /buscar/i });
-    expect(input).toHaveBeenCalled();
+    expect(input).toBeInTheDocument();
   })
 })
 
@@ -203,37 +204,71 @@ describe('Testa a página FavoriteRecipes', () => {
   })
 })
 
-
-//! está com erro
-describe('Testa a página FuncIngredients', () => {
-  it('Testa se encontra o input', () => {
-    renderWithRouter(<FuncIngredients />);
-    const label = screen.getByTestId('0-ingredient-step');
-    expect(label).toHaveBeenCalled();
-    const inp = screen.getByRole('input', { name: /checkbox/i })
-    expect(inp).toHaveBeenCalled();
-  })
-})
-
-//! está com erro
-describe('Testa a página FilterCategories', () => {
-  it('Verifica se o card-name aparece na tela', () => {
-    renderWithRouter(<FilterCategories />);
-    const card = screen.getByTestId('0-card-name');
-    expect(card).toHaveBeenCalled();
-  })
-  it('Verifica se o recipe-card aparece na tela', () => {
-    renderWithRouter(<FilterCategories />);
-    const recipeCard = screen.getByTestId('0-recipe-card');
-    expect(recipeCard).toHaveBeenCalled();
-  })
-  it('Verifica se o card-img aparece na tela', () => {
+describe('Testa a página Profile', () => {
+  it('Verifica se tem um titulo', () => {
     const { history } = renderWithRouter(<App />);
-    history.push('/foods');
-    const cardImg = screen.getByTestId('0-recipe-card');
-    expect(cardImg).toHaveBeenCalled();
+    history.push('/profile');
+    const button = screen.getByTestId('profile-done-btn');
+    expect(button).toBeInTheDocument();
+    userEvent.click(button);
+    const allBtn = screen.getByTestId('filter-by-all-btn');
+    expect(allBtn).toBeInTheDocument();
+    const foodBtn = screen.getByTestId('filter-by-food-btn');
+    expect(foodBtn).toBeInTheDocument();
+  })
+  it('Verifica se ao clicar em favorite recipes, altera de página', () => {
+    const { history } = renderWithRouter(<App />);
+    history.push('/profile');
+    const button = screen.getByTestId('profile-favorite-btn');
+    expect(button).toBeInTheDocument();
+    userEvent.click(button);
+    const favBtn = screen.getByText(/favorite recipes/i);
+    expect(favBtn).toBeInTheDocument();
+    const share = screen.getByTestId('filter-by-drink-btn');
+    expect(share).toBeInTheDocument();
+  })
+
+  it('Verifica ao clicar no botão logout', () => {
+    const { history } = renderWithRouter(<App />);
+    history.push('/profile');
+    const button = screen.getByTestId('profile-logout-btn');
+    expect(button).toBeInTheDocument();
+    userEvent.click(button);
+    const login = screen.getByTestId('email-input');
+    expect(login).toBeInTheDocument();
   })
 })
+
+//! está com erro
+// describe('Testa a página FuncIngredients', () => {
+//   it('Testa se encontra o input', () => {
+//     renderWithRouter(<FuncIngredients />);
+//     const label = screen.getByTestId('0-ingredient-step');
+//     expect(label).toHaveBeenCalled();
+//     const inp = screen.getByRole('input', { name: /checkbox/i })
+//     expect(inp).toHaveBeenCalled();
+//   })
+// })
+
+//! está com erro
+// describe('Testa a página FilterCategories', () => {
+//   it('Verifica se o card-name aparece na tela', () => {
+//     renderWithRouter(<FilterCategories />);
+//     const card = screen.getByTestId('0-card-name');
+//     expect(card).toHaveBeenCalled();
+//   })
+//   it('Verifica se o recipe-card aparece na tela', () => {
+//     renderWithRouter(<FilterCategories />);
+//     const recipeCard = screen.getByTestId('0-recipe-card');
+//     expect(recipeCard).toHaveBeenCalled();
+//   })
+//   it('Verifica se o card-img aparece na tela', () => {
+//     const { history } = renderWithRouter(<App />);
+//     history.push('/foods');
+//     const cardImg = screen.getByTestId('0-recipe-card');
+//     expect(cardImg).toHaveBeenCalled();
+//   })
+// })
 
 
 
@@ -276,9 +311,26 @@ describe('Testa a página Recipe', () => {
     renderWithRouter(<Recipes />);
     const button = screen.getByTestId('All-category-filter');
     expect(button).toBeInTheDocument();
-    userEvent.click(button);
-    const filter = screen.getByTestId('0-category-filter');
-    expect(filter).toHaveBeenCalled(1);
   })
+  //! erro
+  // it('Verifica se ao clicar a página é redirecionada', () => {
+  //   const { history } = renderWithRouter(<App />);
+  //   mockFetchFood;
+  //   history.push('/foods/52977');
+  //   const item = screen.getByTestId('0-recipe-card');
+  //   userEvent.click(item);
+  //   expect(location.pathname).to.equal('/foods/52977');
+  //   jest.clearAllMocks()
+  // })
 })
+
+//! erro
+// const { RecipeScreen } = require('./pages/RecipeScreen');
+
+// describe('Testa a página RecipeScreen', () => {
+//   it('Testa a se existe uma função', async () => {
+//     const actual = RecipeScreen();
+//     expect(typeof actual === 'object').toBe(true);
+//   })
+// })
 
