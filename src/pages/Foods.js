@@ -4,8 +4,6 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import MyContext from '../Context/MyContext';
 import Recipes from './Recipes';
-import '../style/Food.css';
-
 function Foods() {
   const { apiObj } = useContext(MyContext);
   const history = useHistory();
