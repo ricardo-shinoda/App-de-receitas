@@ -3,21 +3,11 @@
   background-color: rgb(165, 164, 164);
   display: flex;
   justify-content: space-around;
-  /* margin: 10px; */
-  /* padding-top: 0; */
 }
 
 .title {
   display: inline-flex;
   justify-content: space-between;
-}
-
-.img_perfil {
-  /* margin-right:  10px; */
-}
-
-.img-search {
-
 }
 
 .search-button {

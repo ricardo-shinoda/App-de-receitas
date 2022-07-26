@@ -1,0 +1,12 @@
+.all-btn, .search-btn {
+  background-color: rgb(165, 164, 164);
+  border: none;
+  font-size: 15px;
+  margin-left: 10px;
+  margin-top: 10px;
+  width: 110px;
+}
+
+.all-btn:hover, .search-btn:hover {
+  font-size: 17px;
+}

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import FilterCategories from '../components/FilterCategories';
 import FoodsAndDrinks from '../components/FoodsAndDrinks';
+import '../style/Recipes.css';
 
 export default function Recipes(props) {
   const { titulo } = props;
@@ -44,6 +45,7 @@ export default function Recipes(props) {
   return (
     <>
       <button
+        className="all-btn"
         type="button"
         data-testid="All-category-filter"
         onClick={ () => handleAllCategorie() }
@@ -52,6 +54,7 @@ export default function Recipes(props) {
       </button>
       {itens.map((item) => (
         <button
+          className="search-btn"
           type="button"
           data-testid={ `${item.strCategory}-category-filter` }
           key={ item.strCategory }
