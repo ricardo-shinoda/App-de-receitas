@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+import '../style/Header.css';
 
 export default function Header(props) {
   const { titulo } = props;
@@ -13,33 +14,44 @@ export default function Header(props) {
 
   useEffect(() => {
     if (titulo === 'Profile' || titulo === 'Done Recipes'
-            || titulo === 'Favorite Recipes') setSearch(true);
+      || titulo === 'Favorite Recipes') setSearch(true);
   }, [titulo]);
 
   const inputDisabled = () => (inputDisable ? setInput(false) : setInput(true));
 
   return (
-    <>
-      <h1 data-testid="page-title">{titulo}</h1>
+    <div className="header">
       <Link to="/profile">
         <img
+          className="img-perfil"
           src={ ProfileIcon }
           alt="profileIcon"
           data-testid="profile-top-btn"
         />
       </Link>
-      { !isDisabledSearch
-    && (
-      <button type="button" onClick={ () => inputDisabled() }>
-        <img
-          src={ SearchIcon }
-          id="searchIcon"
-          alt="searchIcon"
-          data-testid="search-top-btn"
-        />
-      </button>) }
-      { inputDisable ? <SearchBar pagina={ titulo } /> : '' }
-    </>
+      <h1
+        className="title"
+        data-testid="page-title"
+      >
+        {titulo}
+      </h1>
+      {!isDisabledSearch
+        && (
+          <button
+            className="search-button"
+            type="button"
+            onClick={ () => inputDisabled() }
+          >
+            <img
+              className="search-button"
+              src={ SearchIcon }
+              id="searchIcon"
+              alt="searchIcon"
+              data-testid="search-top-btn"
+            />
+          </button>)}
+      {inputDisable ? <SearchBar pagina={ titulo } /> : ''}
+    </div>
   );
 }
 

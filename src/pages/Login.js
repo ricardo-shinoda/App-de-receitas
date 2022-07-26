@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import '../style/Login.css';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -36,22 +37,27 @@ function Login() {
 
   return (
     <div>
-      <h1>Login</h1>
+      <h1 className="login">Login</h1>
       <input
+        className="email"
         name="email"
         type="email"
         data-testid="email-input"
         value={ email }
         onChange={ handleChange }
+        placeholder="Email"
       />
       <input
+        className="password"
         name="password"
         type="password"
         data-testid="password-input"
         value={ password }
         onChange={ handleChange }
+        placeholder="Password"
       />
       <button
+        className="button"
         name="button"
         type="button"
         data-testid="login-submit-btn"

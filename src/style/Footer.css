@@ -1,4 +1,17 @@
 .footer {
+  align-items: center;
+  background-color: rgb(165, 164, 164);
   bottom: 0;
+  display: flex;
+  justify-content: space-between;
   position: fixed;
+  width: 100%;
+}
+
+.food {
+  margin: 10px;
+}
+
+.drink {
+  margin: 10px;
 }
