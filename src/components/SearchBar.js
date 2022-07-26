@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from '../Context/MyContext';
+import '../style/SearchBar.css';
 
 function SearchBar(props) {
   const { clickSearch,
@@ -8,8 +9,13 @@ function SearchBar(props) {
     handleChangeSearch, handleClickRadioDrink } = useContext(MyContext);
   const { pagina } = props;
   return (
-    <div>
-      <input type="text" data-testid="search-input" onChange={ handleChangeSearch } />
+    <div className="search-bar">
+      <input
+        className="input"
+        type="text"
+        data-testid="search-input"
+        onChange={ handleChangeSearch }
+      />
       <br />
       <label htmlFor="ingredient">
         Ingredient

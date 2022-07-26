@@ -1,0 +1,10 @@
+.search-bar {
+  align-items: center;
+  display: inline-block;
+  justify-content: center;
+  width: 90%;
+}
+
+.input {
+  width: 100%;
+}

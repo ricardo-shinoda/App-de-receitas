@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import '../style/FoodsAndDrinks.css';
 
 export default function FoodsAndDrinks(props) {
   const { titulo } = props;
@@ -35,15 +36,22 @@ export default function FoodsAndDrinks(props) {
       const foodRecipe = arrayOfItens && dozeApiObjFood.map((item, index) => (
         <Link to={ `/foods/${item.idMeal}` } key={ item.idMeal }>
           <div
+            className="name-img-card"
             data-testid={ `${index}-recipe-card` }
           >
-            <p data-testid={ `${index}-card-name` }>{ item.strMeal }</p>
             <img
+              className="card-img"
               src={ item.strMealThumb }
               alt={ item.strMeal }
-              width="200px"
+              width="150px"
               data-testid={ `${index}-card-img` }
             />
+            <p
+              className="food-name"
+              data-testid={ `${index}-card-name` }
+            >
+              {item.strMeal}
+            </p>
           </div>
         </Link>
       ));
@@ -54,15 +62,16 @@ export default function FoodsAndDrinks(props) {
     const drinkRecipe = arrayOfItens && dozeApiObjDrink.map((item, index) => (
       <Link to={ `/drinks/${item.idDrink}` } key={ item.idDrink }>
         <div
+          className="name-img-card"
           data-testid={ `${index}-recipe-card` }
         >
-          <p data-testid={ `${index}-card-name` }>{ item.strDrink }</p>
           <img
             data-testid={ `${index}-card-img` }
             src={ item.strDrinkThumb }
             alt={ item.strDrink }
-            width="200px"
+            width="150px"
           />
+          <p data-testid={ `${index}-card-name` }>{item.strDrink}</p>
         </div>
       </Link>
     ));

@@ -20,37 +20,41 @@ export default function Header(props) {
   const inputDisabled = () => (inputDisable ? setInput(false) : setInput(true));
 
   return (
-    <div className="header">
-      <Link to="/profile">
-        <img
-          className="img-perfil"
-          src={ ProfileIcon }
-          alt="profileIcon"
-          data-testid="profile-top-btn"
-        />
-      </Link>
-      <h1
-        className="title"
-        data-testid="page-title"
-      >
-        {titulo}
-      </h1>
-      {!isDisabledSearch
-        && (
-          <button
-            className="search-button"
-            type="button"
-            onClick={ () => inputDisabled() }
-          >
-            <img
+    <div>
+      <div className="header">
+        <Link to="/profile">
+          <img
+            className="img-perfil"
+            src={ ProfileIcon }
+            alt="profileIcon"
+            data-testid="profile-top-btn"
+          />
+        </Link>
+        <h1
+          className="title"
+          data-testid="page-title"
+        >
+          {titulo}
+        </h1>
+        {!isDisabledSearch
+          && (
+            <button
               className="search-button"
-              src={ SearchIcon }
-              id="searchIcon"
-              alt="searchIcon"
-              data-testid="search-top-btn"
-            />
-          </button>)}
-      {inputDisable ? <SearchBar pagina={ titulo } /> : ''}
+              type="button"
+              onClick={ () => inputDisabled() }
+            >
+              <img
+                className="search-button"
+                src={ SearchIcon }
+                id="searchIcon"
+                alt="searchIcon"
+                data-testid="search-top-btn"
+              />
+            </button>)}
+      </div>
+      <div>
+        {inputDisable ? <SearchBar pagina={ titulo } /> : ''}
+      </div>
     </div>
   );
 }

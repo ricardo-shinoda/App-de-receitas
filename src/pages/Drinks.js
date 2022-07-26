@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import MyContext from '../Context/MyContext';
 import Recipes from './Recipes';
+// import '../style/Drinks.css';
 
 function Drinks() {
   const { apiObj } = useContext(MyContext);
@@ -20,6 +21,7 @@ function Drinks() {
         data-testid={ `${index}-recipe-card` }
       >
         <div
+          // className="name-img-card"
           id={ drink.idDrink }
           name="drink"
         >
@@ -32,13 +34,20 @@ function Drinks() {
             name="drink"
           />
           <p
+            // className="name-img-card"
             data-testid={ `${index}-card-name` }
             id={ drink.idDrink }
             name="drink"
           >
             {drink.strDrink}
           </p>
-          <p data-testid="recipe-category">{drink.strCategory}</p>
+          <p
+            // className="name-img-card"
+            data-testid="recipe-category"
+          >
+            {drink.strCategory}
+
+          </p>
         </div>
       </Link>
     ));

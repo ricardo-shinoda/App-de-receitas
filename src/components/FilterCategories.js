@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import '../style/FilterCategories.css';
 
 export default function FilterCategories(props) {
   const { categoria, type } = props;
@@ -46,14 +47,14 @@ export default function FilterCategories(props) {
           key={ item.idMeal }
           data-testid={ `${index}-recipe-card` }
         >
-          <div>
-            <p data-testid={ `${index}-card-name` }>{ item.strMeal }</p>
+          <div className="name-img-card">
             <img
               src={ item.strMealThumb }
               alt={ item.strMeal }
-              width="200"
+              width="150"
               data-testid={ `${index}-card-img` }
             />
+            <p data-testid={ `${index}-card-name` }>{ item.strMeal }</p>
           </div>
         </Link>
       )) : items && items.slice(0, DOZE).map((item, index) => (
@@ -62,14 +63,14 @@ export default function FilterCategories(props) {
           key={ item.idDrink }
           data-testid={ `${index}-recipe-card` }
         >
-          <div>
-            <p data-testid={ `${index}-card-name` }>{ item.strDrink }</p>
+          <div className="name-img-card">
             <img
               src={ item.strDrinkThumb }
               alt={ item.strDrink }
-              width="200"
+              width="150"
               data-testid={ `${index}-card-img` }
             />
+            <p data-testid={ `${index}-card-name` }>{ item.strDrink }</p>
           </div>
         </Link>
       ))}
